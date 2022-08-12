@@ -1,13 +1,16 @@
 import { FormEvent, ReactElement, useState } from "react";
 import { TextField } from "../../components/TextField";
 import { supabase } from "../../supabase";
+import { useNavigate } from "react-router-dom";
 
 export const AssigmentContent: React.FC = (): ReactElement => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [grade, setGrade] = useState("");
   const [link, setLink] = useState("");
   const [nim, setNim] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const re =
     /^([A-Za-z0-9]+@|http(|s):\/\/)([A-Za-z0-9.]+(:\d+)?)(?::|\/)([\d/\w.-]+?)(\.git)?$/i;
   const checkValid = (): boolean => {
@@ -22,6 +25,7 @@ export const AssigmentContent: React.FC = (): ReactElement => {
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+    setLoading(true);
     e.preventDefault();
     try {
       const payload = { name, grade, link, nim };
@@ -31,9 +35,11 @@ export const AssigmentContent: React.FC = (): ReactElement => {
       setName("");
       setLink("");
       setNim("");
+      navigate("/list", { replace: true });
     } catch (err) {
       console.log(err);
     }
+    setLoading(false);
   };
   return (
     <>
@@ -75,9 +81,12 @@ export const AssigmentContent: React.FC = (): ReactElement => {
             }}
           />
           <span className="text-red-900">
-            {!nim.includes("410370062000") && nim.length > 5
-              ? "Input a valid student id"
-              : ""}
+            {(nim.includes("410370062000") &&
+              nim.length > 5 &&
+              nim.length < 15) ||
+            nim.length === 0
+              ? ""
+              : "Input a valid Student Id"}
           </span>
         </div>
         <div className="flex flex-col gap-y-2">
@@ -93,8 +102,8 @@ export const AssigmentContent: React.FC = (): ReactElement => {
             }}
           />{" "}
           <span className="text-red-900">
-            {grade.toUpperCase() === "A1" ||
-            (grade.toUpperCase() === "A2" && grade === "")
+            {grade.toLowerCase() === "a2" ||
+            (grade.toLowerCase() === "a1" && grade.length > 1)
               ? ""
               : "Only Accept Grade from A1 or A2"}
           </span>
@@ -122,7 +131,7 @@ export const AssigmentContent: React.FC = (): ReactElement => {
           disabled={!checkValid()}
           className="disabled:bg-blue-100 disabled:hover:bg-blue-100 bg-blue-400 hover:bg-blue-600 p-2 rounded-lg text-white font-semibold"
         >
-          Submit Now!
+          {!loading ? "Submit Now!" : "Laoding..."}
         </button>
       </form>
     </>
