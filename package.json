@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.prod.json && vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
@@ -15,7 +15,6 @@
     "@supabase/supabase-js": "^1.35.6",
     "@unocss/reset": "^0.45.6",
     "react": "^18.2.0",
-    "react-animated-text-content": "^1.0.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "6"
   },
