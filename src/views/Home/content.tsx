@@ -7,7 +7,7 @@ export const HeadContent = (): ReactElement => {
     <>
       <div className="flex flex-col gap-y-3 w-full items-center">
         <h1 className="text-green-400 font-semibold md:text-3xl text-md text-center">
-          TSKXU will help you Complete yout Task
+          TSKXU will help you Complete your Task
         </h1>
         <Link to={"/assigment"}>
           <Button
