@@ -8,6 +8,7 @@ export const AssigmentContent: React.FC = (): ReactElement => {
   const [name, setName] = useState("");
   const [grade, setGrade] = useState("");
   const [link, setLink] = useState("");
+  const [linkFE, setLinkFE] = useState("");
   const [nim, setNim] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,6 +19,7 @@ export const AssigmentContent: React.FC = (): ReactElement => {
       name.length < 4 ||
       (grade.toUpperCase() !== "A1" && grade !== "A2") ||
       !re.test(link) ||
+      !re.test(linkFE) ||
       (nim.length !== 14 && !nim.includes("410370062000"))
     )
       return false;
@@ -28,12 +30,14 @@ export const AssigmentContent: React.FC = (): ReactElement => {
     setLoading(true);
     e.preventDefault();
     try {
-      const payload = { name, grade, link, nim };
+      // eslint-disable-next-line camelcase
+      const payload = { name, grade, link, link_fe: linkFE, nim };
       const { error } = await supabase.from("tksxu").insert([payload]);
       if (error) setMessage("Nim sudah di gunakan");
       setGrade("");
       setName("");
       setLink("");
+      setLinkFE("");
       setNim("");
       navigate("/list", { replace: true });
     } catch (err) {
@@ -113,7 +117,7 @@ export const AssigmentContent: React.FC = (): ReactElement => {
             name={"link"}
             placeholder={"Input repo link"}
             type={"text"}
-            label={"Your Github Repo"}
+            label={"Your Github Repo (BE)"}
             value={link}
             required
             onChange={(e) => {
@@ -122,6 +126,24 @@ export const AssigmentContent: React.FC = (): ReactElement => {
           />{" "}
           <span className="text-red-900">
             {!re.test(link) && link.length > 2
+              ? "Only Accept Github Link Repo"
+              : ""}
+          </span>
+        </div>
+        <div className="flex flex-col gap-y-2">
+          <TextField
+            name={"link"}
+            placeholder={"Input repo link"}
+            type={"text"}
+            label={"Your Github Repo (FE)"}
+            value={linkFE}
+            required
+            onChange={(e) => {
+              setLinkFE(e.target.value);
+            }}
+          />{" "}
+          <span className="text-red-900">
+            {!re.test(linkFE) && linkFE.length > 2
               ? "Only Accept Github Link Repo"
               : ""}
           </span>
