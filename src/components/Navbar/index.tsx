@@ -17,7 +17,7 @@ export const Navbar = (): ReactElement => {
     },
   ];
   return (
-    <header className="flex h-[60px] gap-x-4 px-8 bg-white w-full items-center sticky top-0">
+    <header className="flex h-auto z-10 gap-x-4 p-6 bg-white w-full items-center sticky top-0">
       <figure className="navbar-figure">
         <figcaption className="font-bold text-md">TSKXU</figcaption>
       </figure>
