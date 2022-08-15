@@ -19,9 +19,9 @@ export const Table: React.FC<TableDto> = (props: TableDto): ReactElement => {
   const { items }: TableDto = props;
   return (
     <>
-      <div className="flex justify-center border-2 rounded-lg overflow-x-auto w-auto mx-auto">
-        <table className="divide-y divide-gray-300 overflow-x-auto w-full">
-          <thead className="bg-gray-100">
+      <div className="flex justify-center border-2 rounded-lg overflow-x-auto w-auto mx-auto h-[calc(100vh-170px)]">
+        <table className="divide-y divide-gray-300 overflow-auto w-full">
+          <thead className="bg-gray-100 sticky top-0">
             <tr>
               <th className="px-6 py-2 text-xs text-gray-500">Name</th>
               <th className="px-6 py-2 text-xs text-gray-500">Grade</th>

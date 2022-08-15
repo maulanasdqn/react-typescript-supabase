@@ -56,7 +56,7 @@ export const AssigmentContent: React.FC = (): ReactElement => {
     <>
       <form
         onSubmit={(e: FormEvent<HTMLFormElement>) => onSubmit(e)}
-        className="flex flex-col gap-y-6 bg-gray-100 p-4 rounded-lg md:w-1/2 h-screen md:h-auto justify-center w-full"
+        className="flex flex-col justify-start gap-y-2 bg-gray-100 py-3 px-4 rounded-lg md:w-1/2 h-screen md:h-auto justify-center w-full"
       >
         <h1 className="text-black-900 font-medium text-xl w-auto mx-auto">
           Make sure to input a correct information

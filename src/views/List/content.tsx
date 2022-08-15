@@ -11,7 +11,10 @@ export const ListContent = (): ReactElement => {
     setLoading(true);
     try {
       // eslint-disable-next-line @typescript-eslint/no-shadow
-      const { data } = await supabase.from("tksxu").select();
+      const { data } = await supabase
+        .from("tksxu")
+        .select()
+        .order("id", { ascending: true });
       setData(data);
     } catch (err) {
       console.log(err);
@@ -23,7 +26,7 @@ export const ListContent = (): ReactElement => {
   }, []);
 
   return (
-    <section className="flex flex-col justify-start pt-8 items-center w-full gap-y-8 overflow-auto h-screen">
+    <section className="flex flex-col justify-start pt-8 px-6 items-center w-full gap-y-8 h-screen overflow-y-hidden">
       {!loading ? <Table items={data} /> : "Now Loading...."}
     </section>
   );
